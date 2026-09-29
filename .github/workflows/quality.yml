@@ -23,9 +23,16 @@ jobs:
           node --check assets/js/state.js
           node --check assets/js/app.js
           node --check sw.js
+          node --check services/api/src/server.js
+          node --check services/api/src/router.js
+          node --check services/api/src/store.js
+          node --check services/api/src/validator.js
 
-      - name: Validate manifest JSON
-        run: python -m json.tool manifest.webmanifest > /dev/null
+      - name: Validate JSON contracts
+        run: |
+          python -m json.tool manifest.webmanifest > /dev/null
+          python -m json.tool services/api/package.json > /dev/null
+          python -m json.tool services/api/data/seed.json > /dev/null
 
       - name: Parse HTML
         run: |
@@ -41,10 +48,15 @@ jobs:
           print("index.html parsed successfully")
           PY
 
+      - name: Run backend smoke tests
+        run: node services/api/test/api.test.js
+
       - name: Confirm required project contracts
         run: |
           test -f docs/PRODUCT-RULES.md
           test -f docs/ARCHITECTURE.md
           test -f docs/DESIGN-SYSTEM.md
           test -f docs/FOUNDATION-PROMPT.md
+          test -f docs/BACKEND-SERVICE.md
+          test -f docs/BACKLOG.md
           test -f CHANGELOG.md
