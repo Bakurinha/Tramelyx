@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="dark">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="description" content="Tramelyx — ambiente de engenharia narrativa para histórias complexas e jogos.">
+    <meta name="theme-color" content="#11131a">
+
+    <title>Tramelyx — Narrative Engineering</title>
+
+    <!--
+      O frontend não depende de CDN. Isso mantém a v0.1 gratuita, leve,
+      reproduzível e funcional mesmo quando serviços externos estão fora do ar.
+    -->
+    <link rel="stylesheet" href="assets/css/tokens.css">
+    <link rel="stylesheet" href="assets/css/app.css">
+    <link rel="manifest" href="manifest.webmanifest">
+
+    <!--
+      Scripts clássicos são usados de propósito na fundação para ampliar a
+      compatibilidade e evitar um build obrigatório. A ordem define os contratos:
+      dados -> estado -> apresentação.
+    -->
+    <script defer src="assets/js/data.js"></script>
+    <script defer src="assets/js/state.js"></script>
+    <script defer src="assets/js/app.js"></script>
+  </head>
+
+  <body>
+    <a class="skip-link" href="#workspace">Pular para o conteúdo</a>
+
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Navegação principal">
+        <div class="brand" aria-label="Tramelyx">
+          <span class="brand-mark" aria-hidden="true">T</span>
+          <span class="brand-copy">
+            <strong>Tramelyx</strong>
+            <small>Narrative Engineering</small>
+          </span>
+        </div>
+
+        <!--
+          data-view é o contrato estável entre navegação e renderer. Novas
+          telas devem entrar aqui e no registro de views em app.js.
+        -->
+        <nav class="module-nav" id="module-nav" aria-label="Módulos">
+          <button class="nav-item is-active" type="button" data-view="dashboard" aria-current="page">
+            <span aria-hidden="true">⌂</span>
+            <span>Visão geral</span>
+          </button>
+          <button class="nav-item" type="button" data-view="story">
+            <span aria-hidden="true">◇</span>
+            <span>Story Graph</span>
+          </button>
+          <button class="nav-item" type="button" data-view="canon">
+            <span aria-hidden="true">◆</span>
+            <span>Canon Engine</span>
+          </button>
+          <button class="nav-item" type="button" data-view="knowledge">
+            <span aria-hidden="true">◎</span>
+            <span>Knowledge</span>
+          </button>
+          <button class="nav-item" type="button" data-view="timeline">
+            <span aria-hidden="true">↦</span>
+            <span>Timeline</span>
+          </button>
+          <button class="nav-item" type="button" data-view="reveals">
+            <span aria-hidden="true">◈</span>
+            <span>Revelações</span>
+          </button>
+          <button class="nav-item" type="button" data-view="validator">
+            <span aria-hidden="true">✓</span>
+            <span>Validator</span>
+          </button>
+          <button class="nav-item" type="button" data-view="history">
+            <span aria-hidden="true">↶</span>
+            <span>Histórico</span>
+          </button>
+        </nav>
+
+        <div class="sidebar-footer">
+          <span class="version-pill">v0.1</span>
+          <span class="local-pill" title="Nesta versão, alterações do protótipo ficam neste navegador.">Local-first</span>
+        </div>
+      </aside>
+
+      <section class="app-column">
+        <header class="topbar">
+          <div class="project-context">
+            <span class="eyebrow">Projeto atual</span>
+            <strong id="project-name">Projeto Demonstrativo</strong>
+          </div>
+
+          <div class="topbar-actions">
+            <span class="save-state" id="save-state" role="status" aria-live="polite">Salvo localmente</span>
+            <button class="icon-button" id="theme-toggle" type="button" aria-label="Alternar tema" title="Alternar tema">
+              ◐
+            </button>
+          </div>
+        </header>
+
+        <!--
+          O workspace é atualizado por app.js. Existe conteúdo inicial real para
+          que a página continue compreensível caso JavaScript esteja indisponível.
+        -->
+        <main class="workspace" id="workspace" tabindex="-1">
+          <section class="page-header">
+            <div>
+              <span class="eyebrow">Tramelyx Foundation</span>
+              <h1>Engenharia narrativa, não apenas escrita.</h1>
+              <p class="lead">
+                Conecte acontecimentos, cânone, conhecimento e estado sem perder a consistência do universo.
+              </p>
+            </div>
+          </section>
+
+          <section class="fallback-grid" aria-label="Recursos principais">
+            <article class="panel">
+              <span class="panel-kicker">Story Graph</span>
+              <h2>O que acontece</h2>
+              <p>Modele cenas, decisões e consequências como relações navegáveis.</p>
+            </article>
+            <article class="panel">
+              <span class="panel-kicker">Canon Engine</span>
+              <h2>O que é verdade</h2>
+              <p>Registre fatos, vigência, estado e impacto de alterações no cânone.</p>
+            </article>
+            <article class="panel">
+              <span class="panel-kicker">Knowledge Graph</span>
+              <h2>Quem sabe o quê</h2>
+              <p>Controle origem e momento do conhecimento de personagens, facções e leitor.</p>
+            </article>
+            <article class="panel">
+              <span class="panel-kicker">State Engine</span>
+              <h2>O que muda</h2>
+              <p>Relacione escolhas e condições ao estado do mundo e às rotas possíveis.</p>
+            </article>
+          </section>
+
+          <noscript>
+            <div class="notice warning">
+              O Tramelyx continua legível sem JavaScript, mas a edição e os módulos interativos exigem JavaScript habilitado.
+            </div>
+          </noscript>
+        </main>
+      </section>
+    </div>
+  </body>
+</html>
