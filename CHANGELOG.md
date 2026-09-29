@@ -4,6 +4,13 @@ Todas as mudanças relevantes do Tramelyx devem ser registradas neste arquivo.
 
 O projeto seguirá princípios de Semantic Versioning à medida que os contratos amadurecerem.
 
+## [Unreleased]
+
+### Documentation
+
+- Guia `ZERO-COST-LAUNCH.md` com publicação gratuita, limites do GitHub Pages, caminho para backend gratuito e checklist de lançamento.
+- README atualizado para refletir a estrutura real da v0.1 e apontar o guia de lançamento.
+
 ## [0.1.0] - 2026-09-29
 
 ### Added
