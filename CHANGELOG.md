@@ -6,10 +6,28 @@ O projeto seguirá princípios de Semantic Versioning à medida que os contratos
 
 ## [Unreleased]
 
+### Added
+
+- Backend Service v0.1 em Node.js sem dependências externas obrigatórias.
+- API REST versionada em `/api/v1` para projetos, Story Graph, Canon, Knowledge, State e Validator.
+- Storage Adapter em JSON local com rota explícita de migração para banco multiusuário.
+- Narrative Validator reutilizável no backend.
+- Seed de projeto demonstrativo para a API.
+- Smoke tests automáticos do backend no GitHub Actions.
+- Proteção contra escrita pública acidental em `NODE_ENV=production` sem configuração de autorização.
+- CORS configurável e limite de payload inicial.
+- Documentação `BACKEND-SERVICE.md` e backlog técnico priorizado em `BACKLOG.md`.
+
 ### Documentation
 
 - Guia `ZERO-COST-LAUNCH.md` com publicação gratuita, limites do GitHub Pages, caminho para backend gratuito e checklist de lançamento.
-- README atualizado para refletir a estrutura real da v0.1 e apontar o guia de lançamento.
+- README atualizado para refletir frontend, Backend Service, quality gate e backlog.
+
+### Decisions
+
+- O frontend continua local-first; a API não substitui abruptamente o State Adapter atual.
+- Integração futura ocorrerá por um Sync Bridge para preservar offline/autosave e evitar quebra do frontend.
+- JSON em disco é apenas adapter de desenvolvimento; escrita pública multiusuário exige banco, autenticação e autorização reais.
 
 ## [0.1.0] - 2026-09-29
 
