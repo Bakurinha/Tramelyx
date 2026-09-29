@@ -1,0 +1,50 @@
+name: Quality checks
+
+on:
+  push:
+    branches:
+      - main
+      - "feature/**"
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check JavaScript syntax
+        run: |
+          node --check assets/js/data.js
+          node --check assets/js/state.js
+          node --check assets/js/app.js
+          node --check sw.js
+
+      - name: Validate manifest JSON
+        run: python -m json.tool manifest.webmanifest > /dev/null
+
+      - name: Parse HTML
+        run: |
+          python - <<'PY'
+          from html.parser import HTMLParser
+          from pathlib import Path
+
+          class Parser(HTMLParser):
+              pass
+
+          source = Path("index.html").read_text(encoding="utf-8")
+          Parser().feed(source)
+          print("index.html parsed successfully")
+          PY
+
+      - name: Confirm required project contracts
+        run: |
+          test -f docs/PRODUCT-RULES.md
+          test -f docs/ARCHITECTURE.md
+          test -f docs/DESIGN-SYSTEM.md
+          test -f docs/FOUNDATION-PROMPT.md
+          test -f CHANGELOG.md
