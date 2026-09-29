@@ -1,0 +1,14 @@
+{
+  "name": "tramelyx-api",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Backend service local-first do Tramelyx.",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "check": "node --check src/server.js && node --check src/router.js && node --check src/store.js && node --check src/validator.js",
+    "test": "node test/api.test.js"
+  }
+}

@@ -17,13 +17,14 @@ Sobre esses quatro sistemas vivem recursos como timeline, personagens, worldbuil
 
 ## Estado atual
 
-- **Versão:** `0.1.0-foundation`
+- **Versão:** `0.1.x-foundation`
 - **Status:** fundação / protótipo funcional
 - **Custo obrigatório para desenvolvimento e publicação:** R$ 0
 - **Frontend:** HTML, CSS e JavaScript sem dependência obrigatória de framework
-- **Persistência inicial:** local/offline
-- **Hospedagem recomendada da demonstração:** GitHub Pages ou Cloudflare Pages
-- **Quality gate:** GitHub Actions valida sintaxe JavaScript, manifesto, HTML e documentos obrigatórios
+- **Persistência web atual:** local/offline
+- **Backend Service:** API REST Node.js v0.1, sem dependências externas, com adapter de persistência substituível
+- **Hospedagem da demonstração:** GitHub Pages
+- **Quality gate:** GitHub Actions valida frontend, backend, JSON, HTML e smoke tests da API
 
 ## Princípios permanentes
 
@@ -34,10 +35,10 @@ Sobre esses quatro sistemas vivem recursos como timeline, personagens, worldbuil
 - Código-fonte comentado nos pontos de intenção, regra de negócio, integração e decisão arquitetural.
 - HTML semanticamente organizado e indentado.
 - Mudanças relevantes exigem atualização do `CHANGELOG.md` e da documentação correspondente.
-- Dados narrativos e interface devem permanecer desacoplados.
+- Dados narrativos, interface, API e persistência devem permanecer desacoplados.
 - O sistema deve ser **flexível como água para extensão e sólido como pedra em seus contratos centrais**.
 
-## Estrutura da v0.1
+## Estrutura atual
 
 ```text
 /
@@ -53,20 +54,30 @@ Sobre esses quatro sistemas vivem recursos como timeline, personagens, worldbuil
 │       ├── data.js
 │       ├── state.js
 │       └── app.js
+├── services/
+│   └── api/
+│       ├── src/
+│       │   ├── server.js
+│       │   ├── router.js
+│       │   ├── store.js
+│       │   └── validator.js
+│       ├── data/seed.json
+│       ├── test/api.test.js
+│       └── package.json
 ├── docs/
 │   ├── FOUNDATION-PROMPT.md
 │   ├── PRODUCT-RULES.md
 │   ├── ARCHITECTURE.md
 │   ├── DESIGN-SYSTEM.md
 │   ├── BENCHMARK.md
+│   ├── BACKEND-SERVICE.md
+│   ├── BACKLOG.md
 │   ├── ZERO-COST-LAUNCH.md
 │   └── ROADMAP.md
 └── CHANGELOG.md
 ```
 
-## Rodando localmente
-
-Como a base é estática, qualquer servidor HTTP simples funciona. Exemplo com Python:
+## Rodando o frontend localmente
 
 ```bash
 python -m http.server 8080
@@ -74,11 +85,27 @@ python -m http.server 8080
 
 Depois abra `http://localhost:8080`.
 
-> Abrir o `index.html` diretamente também exibe a interface, mas recursos de PWA/service worker exigem HTTPS ou localhost.
+## Rodando o Backend Service
 
-## Colocando no ar por R$ 0
+```bash
+cd services/api
+npm start
+```
 
-O passo a passo está em [`docs/ZERO-COST-LAUNCH.md`](docs/ZERO-COST-LAUNCH.md). Para a demonstração atual, basta habilitar GitHub Pages apontando para `main` e `/ (root)`.
+A API inicia em `http://127.0.0.1:8787` por padrão.
+
+Testes:
+
+```bash
+cd services/api
+npm test
+```
+
+A documentação da API e da arquitetura está em [`docs/BACKEND-SERVICE.md`](docs/BACKEND-SERVICE.md). O trabalho futuro priorizado está em [`docs/BACKLOG.md`](docs/BACKLOG.md).
+
+## Colocando o frontend no ar por R$ 0
+
+O passo a passo está em [`docs/ZERO-COST-LAUNCH.md`](docs/ZERO-COST-LAUNCH.md). O GitHub Pages publica a interface estática; o Backend Service precisa de um ambiente separado quando for exposto por HTTPS.
 
 ## Licença
 

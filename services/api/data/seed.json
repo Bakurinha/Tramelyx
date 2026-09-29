@@ -1,0 +1,108 @@
+{
+  "schemaVersion": 1,
+  "projects": [
+    {
+      "id": "demo-project",
+      "schemaVersion": 1,
+      "name": "A Última Estação",
+      "type": "Interactive Story",
+      "status": "prototype",
+      "createdAt": "2026-09-29T10:30:00-03:00",
+      "updatedAt": "2026-09-29T10:30:00-03:00",
+      "nodes": [
+        {
+          "id": "node-001",
+          "title": "Sinal na plataforma",
+          "type": "scene",
+          "summary": "A protagonista encontra uma transmissão impossível numa estação abandonada.",
+          "status": "canon",
+          "targets": ["node-002"]
+        },
+        {
+          "id": "node-002",
+          "title": "Responder ou observar",
+          "type": "decision",
+          "summary": "Uma decisão altera a rota e prepara estados diferentes.",
+          "status": "canon",
+          "targets": ["node-003", "node-004"]
+        },
+        {
+          "id": "node-003",
+          "title": "Contato antecipado",
+          "type": "scene",
+          "summary": "Responder aumenta a confiança no operador.",
+          "status": "provisional",
+          "targets": ["node-005"]
+        },
+        {
+          "id": "node-004",
+          "title": "Sala de manutenção",
+          "type": "scene",
+          "summary": "Investigar revela um registro técnico oculto.",
+          "status": "canon",
+          "targets": ["node-005"]
+        },
+        {
+          "id": "node-005",
+          "title": "Primeiro ponto sem retorno",
+          "type": "ending",
+          "summary": "As rotas convergem mantendo estados diferentes.",
+          "status": "canon",
+          "targets": []
+        }
+      ],
+      "canonFacts": [
+        {
+          "id": "fact-001",
+          "statement": "A estação foi oficialmente desativada há doze anos.",
+          "status": "canon",
+          "effectiveFrom": "node-001",
+          "tags": ["world", "station"]
+        },
+        {
+          "id": "fact-002",
+          "statement": "O operador conhece a protagonista antes do primeiro contato.",
+          "status": "provisional",
+          "effectiveFrom": "",
+          "tags": ["mystery", "character"]
+        }
+      ],
+      "knowledge": [
+        {
+          "id": "knowledge-001",
+          "subject": "Mara",
+          "factId": "fact-001",
+          "knows": "confirmed",
+          "fromNodeId": "node-001",
+          "since": "Abertura"
+        }
+      ],
+      "stateVariables": [
+        {
+          "id": "state-001",
+          "name": "trust_operator",
+          "type": "number",
+          "value": 0,
+          "scope": "route"
+        },
+        {
+          "id": "state-002",
+          "name": "maintenance_log_found",
+          "type": "boolean",
+          "value": false,
+          "scope": "route"
+        }
+      ],
+      "timeline": [],
+      "reveals": [],
+      "history": [
+        {
+          "id": "history-001",
+          "at": "2026-09-29T10:30:00-03:00",
+          "action": "API seed created",
+          "detail": "Projeto de demonstração carregado no serviço local."
+        }
+      ]
+    }
+  ]
+}
