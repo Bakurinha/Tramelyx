@@ -1,0 +1,12 @@
+{
+  "name": "Tramelyx — Narrative Engineering",
+  "short_name": "Tramelyx",
+  "description": "Ambiente de engenharia narrativa para histórias complexas e jogos.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0c0e13",
+  "theme_color": "#11131a",
+  "lang": "pt-BR",
+  "categories": ["productivity", "entertainment", "developer"]
+}
