@@ -1,5 +1,12 @@
 # Changelog
 
+## Segurança — 2026-10-25 (configuração)
+
+- API rejeita origens não autorizadas antes de alterar dados e exige application/json nas escritas; testes cobrem requisições rejeitadas e permitidas.
+- Actions fixadas por SHA verificado; permissões de leitura explícitas e credenciais de checkout removidas dos fluxos sem escrita.
+- Dependabot configurado para propor atualizações de Actions e dos pacotes npm aplicáveis, sem merge automático.
+
+
 Todas as mudanças relevantes do Tramelyx devem ser registradas neste arquivo.
 
 O projeto seguirá princípios de Semantic Versioning à medida que os contratos amadurecerem.

@@ -65,7 +65,25 @@ async function run() {
     assert.equal(result.response.status, 200);
     assert.equal(result.body.data.value, 10);
 
-    console.log("Tramelyx API smoke tests: OK");
+    const before = (await request(baseUrl, "/api/v1/projects")).body.data.length;
+    for (const headers of [
+      { Origin: "https://attacker.example", "Content-Type": "application/json" },
+      { Origin: "https://attacker.example", "Content-Type": "text/plain" },
+      { "Content-Type": "text/plain" }
+    ]) {
+      result = await request(baseUrl, "/api/v1/projects", {
+        method: "POST", headers, body: JSON.stringify({ name: "Rejected" })
+      });
+      assert.equal(result.response.status, headers.Origin ? 403 : 415);
+    }
+    assert.equal((await request(baseUrl, "/api/v1/projects")).body.data.length, before);
+    result = await request(baseUrl, "/api/v1/projects", {
+      method: "POST", headers: { Origin: "http://localhost:8080", "Content-Type": "application/json" },
+      body: JSON.stringify({ name: "Allowed local UI" })
+    });
+    assert.equal(result.response.status, 201);
+    assert.equal(result.response.headers.get("X-Content-Type-Options"), "nosniff");
+    console.log("Tramelyx API smoke and cross-origin security tests: OK");
   } finally {
     await new Promise((resolve) => server.close(resolve));
     fs.rmSync(tempDir, { recursive: true, force: true });

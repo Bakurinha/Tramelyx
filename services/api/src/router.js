@@ -14,6 +14,7 @@ function sendJson(response, statusCode, payload, extraHeaders) {
   response.writeHead(statusCode, {
     "Content-Type": "application/json; charset=utf-8",
     "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
     ...(extraHeaders || {})
   });
   response.end(JSON.stringify(payload));
@@ -99,6 +100,19 @@ async function route(request, response) {
   const url = new URL(request.url, "http://localhost");
   const pathname = url.pathname;
   const cors = getCorsHeaders(request);
+
+  // CORS alone only hides responses; reject foreign origins before any mutation.
+  if (request.headers.origin && !cors["Access-Control-Allow-Origin"]) {
+    sendJson(response, 403, { error: "ORIGIN_NOT_ALLOWED" });
+    return;
+  }
+
+  // Reject browser form submissions, including requests without an Origin header.
+  if (isWriteMethod(request.method) &&
+      (request.headers["content-type"] || "").split(";")[0].trim().toLowerCase() !== "application/json") {
+    sendJson(response, 415, { error: "JSON_CONTENT_TYPE_REQUIRED" }, cors);
+    return;
+  }
 
   if (request.method === "OPTIONS") {
     response.writeHead(204, cors);
